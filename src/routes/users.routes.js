@@ -5,7 +5,7 @@ const router = express.Router()
 router.post('/signup', signup)
 router.post('/login', login)
 
-router.route('/:id/history')
-.get(history)
+router.get('/:id/history', history)
+
 
 module.exports = router

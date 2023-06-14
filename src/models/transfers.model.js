@@ -5,14 +5,14 @@ const Transfer = db.define('transfers', {
   id: {
     primaryKey: true,
     autoIncrement: true,
-    allowNull: false,
+    allowNull: false, 
     type: DataTypes.INTEGER,
   },
   amount: {
     type: DataTypes.FLOAT,
     allowNull: false
   },
-  snderUserId: {
+  senderId: {
     type: DataTypes.INTEGER,
     allowNull: false
   },

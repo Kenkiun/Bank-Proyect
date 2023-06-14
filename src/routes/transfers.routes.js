@@ -3,7 +3,7 @@ const { transfer } = require('../controllers/transfers.controllers')
 const router = express.Router()
 
 
-router.post(transfer)
+router.post('/', transfer)
 
 
 module.exports = router

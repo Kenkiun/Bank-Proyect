@@ -1,9 +1,9 @@
 const Transfer = require('../models/transfers.model')
-
+const User = require('../models/users.model')
 
 exports.transfer = async (req, res, next) => {
   try{
-    const {amount, accountNumber, senderUserId} = req.body
+    const {amount, accountNumber, senderId} = req.body
 
     const userReciever = await User.findOne({
       where: {
@@ -12,12 +12,12 @@ exports.transfer = async (req, res, next) => {
       }
     })
 
-    const recieverUserId = transferToThisUser.id
+    const recieverId = userReciever.id
 
     const userSender = await User.findOne({
       where: {
         status: true,
-        id: senderUserId,
+        id: senderId
       }
     })
 
@@ -37,12 +37,12 @@ exports.transfer = async (req, res, next) => {
 
     const newAmountUserMakeTransfer = userSender.amount - amount
 
-    const newAmountReciever = userReciever + amount
+    const newAmountReciever = userReciever.amount + amount
 
     await userSender.update({amount: newAmountUserMakeTransfer})
     await userReciever.update({amount: newAmountReciever})
     
-    await Transfer.create({amount, senderUserId, recieverUserId})
+    await Transfer.create({amount, senderId, recieverId})
 
     res.status(200).json({
       message: 'transfer success'
